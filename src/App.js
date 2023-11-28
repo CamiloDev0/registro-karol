@@ -5,6 +5,7 @@ function App() {
 	const [currentScreen, setCurrentScreen] = useState(0);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
+	const [file, setFile] = useState('');
 	const [registeredUsers, setRegisteredUsers] = useState([]);
 
 	// const firebaseConfig = {
@@ -17,8 +18,19 @@ function App() {
 	// 	measurementId: 'G-EPW670CXJS',
 	// };
 
+	const obtenerNombreDeArchivo = (ruta) => {
+		// Dividir la ruta en partes usando el separador de directorios
+		var partesRuta = ruta.split('\\'); // En sistemas Unix, podrías usar '/' en lugar de '\\'
+
+		// Tomar la última parte que contiene el nombre del archivo
+		var nombreArchivoConExtension = partesRuta[partesRuta.length - 1];
+
+		// Dividir el nombre del archivo y la extensión
+
+		return nombreArchivoConExtension;
+	};
+
 	const getdata = async (e) => {
-		e.preventDefault();
 		const options = {
 			method: 'POST',
 			headres: {
@@ -34,9 +46,9 @@ function App() {
 			options
 		);
 		if (res) {
-			alert('Meesage Sent');
+			console.log('Meesage Sent');
 		} else {
-			alert('Error Occuere');
+			console.log('Error Occuere');
 		}
 	};
 
@@ -134,6 +146,56 @@ function App() {
 				</div>
 			) : null}
 			{currentScreen === 1 ? (
+				<div>
+					<img
+						src='images/frame1.png'
+						style={{ width: '100%', height: '100%', position: 'absolute' }}
+						alt=''
+					/>
+					<img
+						src='images/boton.png'
+						style={{
+							width: '60%',
+							height: '7%',
+							left: '20%',
+							top: '76%',
+							position: 'absolute',
+						}}
+						alt=''
+						onClick={() => {
+							next();
+						}}
+					/>
+					<div className='container__form'>
+						<div className='custom-file-upload'>
+							<input
+								id='uploadImage'
+								type='file'
+								accept='image/*'
+								placeholder='Cargar imagen'
+								value={file}
+								onChange={(e) => {
+									console.log(e.target.value);
+									setFile(e.target.value);
+								}}
+							/>
+							<label
+								className='custom-file-upload__label'
+								htmlFor='uploadImage'
+							>
+								{file !== ''
+									? obtenerNombreDeArchivo(file)
+									: 'Toca para cargar una imagen'}
+							</label>
+						</div>
+
+						<button onClick={() => [next(), check(), getdata()]}>
+							Guardar y continuar
+						</button>
+					</div>
+				</div>
+			) : null}
+			{currentScreen === 2 ? (
 				<div>
 					<img
 						src='images/frame2.png'
