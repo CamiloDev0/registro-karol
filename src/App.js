@@ -198,6 +198,16 @@ function App() {
 			{currentScreen === 2 ? (
 				<div>
 					<img
+						onDoubleClick={() => [next()]}
+						src='images/exp1.png'
+						style={{ width: '100%', height: '100%', position: 'absolute' }}
+						alt=''
+					/>
+				</div>
+			) : null}
+			{currentScreen === 3 ? (
+				<div>
+					<img
 						src='images/frame2.png'
 						style={{ width: '100%', height: '100%', position: 'absolute' }}
 						alt=''
