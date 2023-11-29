@@ -14,8 +14,6 @@ function App() {
   const [file, setFile] = useState("");
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [qrUrl, setQrUrl] = useState(undefined);
-  const [currentUrlImage, setCurrentUrlImage] = useState();
-  console.log('qrUrl',qrUrl)
   // const firebaseConfig = {
   // 	apiKey: 'AIzaSyDBErbEBvDu5SkAj1e7VsKENIC6of-wams',
   // 	authDomain: 'karlog-registro-pisina.firebaseapp.com',
@@ -88,7 +86,6 @@ function App() {
 
       reader.onloadend = () => {
         setFile(reader.result);
-        setCurrentUrlImage(e.target.value);
       };
 
       reader.readAsDataURL(selectedFile);
@@ -106,7 +103,6 @@ function App() {
           logging: true,
         });
         const canvasImage = canvas.toDataURL("image/png", 1.0);
-        console.log("canvasImage", canvasImage);
         const headers = {
           "Content-Type": "application/json",
         };
