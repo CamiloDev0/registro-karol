@@ -303,18 +303,25 @@ function App() {
 						style={{ width: '100%', height: '100%', position: 'absolute' }}
 						alt=''
 					/>
-					<div style={{ position: 'absolute', top: '50%', left: '50%' }}>
+					<div
+						style={{
+							position: 'absolute',
+							top: '56%',
+							left: '50%',
+							margin: '0 0 0 -128px',
+						}}
+					>
 						{qrUrl ? (
 							<QRCode
 								size={256}
-								style={{ height: 'auto', maxWidth: '256px', width: '100%' }}
+								style={{ height: '100%', maxWidth: '256px', width: '100%' }}
 								value={`https://mocionws.info/download.html?url=https://mocionws.info/mirror/${qrUrl}.png&name=Wella Beauty Festival - Sebastian Mirror`}
 								viewBox='0 0 256 256'
 							/>
 						) : (
 							<QRCode
 								size={256}
-								style={{ height: 'auto', maxWidth: '256px', width: '100%' }}
+								style={{ height: '100%', maxWidth: '256px', width: '100%' }}
 								value={`${window.location.href}/images/notfound.jpg`}
 								viewBox='0 0 256 256'
 							/>
