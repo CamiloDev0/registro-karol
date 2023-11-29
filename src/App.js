@@ -14,6 +14,7 @@ function App() {
   const [file, setFile] = useState("");
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [qrUrl, setQrUrl] = useState(undefined);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
   // const firebaseConfig = {
   // 	apiKey: 'AIzaSyDBErbEBvDu5SkAj1e7VsKENIC6of-wams',
   // 	authDomain: 'karlog-registro-pisina.firebaseapp.com',
@@ -94,6 +95,7 @@ function App() {
 
   const exportAsImage = async () => {
     try {
+      setIsLoadingImage(true);
       const element = document.querySelector(".container-image");
       if (element instanceof HTMLElement) {
         console.log("1");
@@ -123,6 +125,8 @@ function App() {
       } else console.error("Element not found");
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoadingImage(false);
     }
   };
   return (
@@ -284,7 +288,7 @@ function App() {
               getdata();
             }}
           >
-            Guardar y continuar
+            {isLoadingImage ? "Generando imagen" : " Guardar y continuar"}
           </button>
         </div>
       ) : null}
