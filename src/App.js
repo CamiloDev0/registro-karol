@@ -257,18 +257,23 @@ function App() {
 			) : null}
 			{currentScreen === PAGES.PREVIEW_IMAGE ? (
 				<div>
-					<div className='container-image'>
+					<div style={{ height: '1300px' }} className='container-image'>
 						<img
 							src='images/Marco.png'
 							style={{ width: '100%', height: '100%', position: 'absolute' }}
 							alt=''
 						/>
 						{/* <div className="image" style={{ backgroundImage: `url('${file}')`, height: "100%", width: "100%" , zIndex: 999}} /> */}
-						<div style={{ zIndex: 999, height: '99%' }}>
+						<div style={{ height: '99%' }}>
 							<img
 								src={file}
 								alt='Uploaded'
-								style={{ height: '100%', width: '100%' }}
+								style={{
+									height: '72%',
+									width: '100%',
+									objectFit: 'fill',
+									marginTop: '32%',
+								}}
 							/>
 						</div>
 					</div>
