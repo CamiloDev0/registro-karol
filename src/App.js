@@ -308,7 +308,7 @@ function App() {
 							position: 'absolute',
 							top: '56%',
 							left: '50%',
-							margin: '0 0 0 -128px',
+							margin: '-25px 0 0 -128px',
 						}}
 					>
 						{qrUrl ? (
