@@ -76,7 +76,7 @@ function App() {
 		};
 
 		const newUniqueId = Math.random().toString(36).substring(7);
-		const newHashId = 'Bancolombia-KG-' + newUniqueId;
+		const newHashId = 'Bancolombia-KG-image-pool' + newUniqueId;
 		setHashId(newHashId);
 		// Agregar el nuevo usuario al estado (en este caso, al array 'registeredUsers')
 		setRegisteredUsers([...registeredUsers, newUser]);
