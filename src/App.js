@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import QRCode from 'react-qr-code';
 import html2canvas from 'html2canvas';
@@ -15,6 +15,8 @@ function App() {
 	const [registeredUsers, setRegisteredUsers] = useState([]);
 	const [qrUrl, setQrUrl] = useState(undefined);
 	const [isLoadingImage, setIsLoadingImage] = useState(false);
+	const [hashId, setHashId] = useState('');
+	
 	// const firebaseConfig = {
 	// 	apiKey: 'AIzaSyDBErbEBvDu5SkAj1e7VsKENIC6of-wams',
 	// 	authDomain: 'karlog-registro-pisina.firebaseapp.com',
@@ -66,19 +68,38 @@ function App() {
 			);
 		}
 	}
-	const handleRegister = () => {
+	
+	const handleRegister = async() => {
 		const newUser = {
 			name,
 			email,
 		};
 
+		const newUniqueId = Math.random().toString(36).substring(7);
+		const newHashId = 'Bancolombia-KG-' + newUniqueId;
+		setHashId(newHashId);
 		// Agregar el nuevo usuario al estado (en este caso, al array 'registeredUsers')
 		setRegisteredUsers([...registeredUsers, newUser]);
-
+		let url = `https://mocionws.info/dbController.php?method=newRecord&table=leads&name=${name}&email=${email}&uniqueId=${newHashId}&experience=0`;
+      	await axios.get(url);
 		// Limpiar campos después del registro
 		setName('');
 		setEmail('');
 	};
+
+	useEffect(() => {
+		// Este bloque se ejecutará después de que hashId se haya actualizado
+		console.log(hashId);
+	  }, [hashId]);
+
+	const handleLikeExperience = async (like) => {
+		let url = `https://mocionws.info/dbController.php?method=updateRecord&table=leads&hash=${hashId}&experience=${like}`
+      	let response = await axios.get(url);
+		if( response ){
+			goToPage(PAGES.FORM);
+			setRegisteredUsers([]);
+		}
+	}
 
 	const handleFileChange = (e) => {
 		const selectedFile = e.target.files[0];
@@ -328,7 +349,7 @@ function App() {
 							<QRCode
 								size={256}
 								style={{ height: '100%', maxWidth: '256px', width: '100%' }}
-								value={`https://mocionws.info/download.html?url=https://mocionws.info/mirror/${qrUrl}.png&name=Wella Beauty Festival - Sebastian Mirror`}
+								value={`https://mocionws.info/download.html?url=https://mocionws.info/mirror/${qrUrl}.png&name=Bancolombia & Karol G`}
 								viewBox='0 0 256 256'
 							/>
 						) : (
@@ -360,8 +381,7 @@ function App() {
 						}}
 						alt=''
 						onClick={() => {
-							goToPage(PAGES.FORM);
-							setRegisteredUsers([]);
+							handleLikeExperience(1);
 						}}
 					/>
 					<img
@@ -375,8 +395,7 @@ function App() {
 						}}
 						alt=''
 						onClick={() => {
-							goToPage(PAGES.FORM);
-							setRegisteredUsers([]);
+							handleLikeExperience(0);
 						}}
 					/>
 				</div>
