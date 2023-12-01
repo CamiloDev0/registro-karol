@@ -192,7 +192,7 @@ function App() {
 						</div>
 						<button
 							onClick={() => {
-								goToPage(PAGES.UPLOAD_IMAGE);
+								goToPage(PAGES.DESPEDIDA);
 								check();
 								getdata();
 							}}
@@ -202,146 +202,7 @@ function App() {
 					</div>
 				</div>
 			) : null}
-			{currentScreen === PAGES.UPLOAD_IMAGE ? (
-				<div>
-					<img
-						src='images/frame1.png'
-						style={{ width: '100%', height: '100%', position: 'absolute' }}
-						alt=''
-					/>
-					<img
-						src='images/boton.png'
-						style={{
-							width: '60%',
-							height: '7%',
-							left: '20%',
-							top: '76%',
-							position: 'absolute',
-						}}
-						alt=''
-						onClick={() => {
-							goToPage(PAGES.PREVIEW_IMAGE);
-						}}
-					/>
-					<div className='container__form'>
-						<div className='custom-file-upload'>
-							<input
-								id='uploadImage'
-								type='file'
-								accept='image/*'
-								placeholder='Cargar imagen'
-								onChange={handleFileChange}
-							/>
-							<label
-								className='custom-file-upload__label'
-								htmlFor='uploadImage'
-							>
-								{file
-									? obtenerNombreDeArchivo(file)
-									: 'Toca para cargar una imagen'}
-							</label>
-						</div>
 
-						<button
-							disabled={file.length === 0}
-							onClick={async () => {
-								goToPage(PAGES.PREVIEW_IMAGE);
-								check();
-								getdata();
-							}}
-						>
-							Continuar
-						</button>
-					</div>
-				</div>
-			) : null}
-			{currentScreen === PAGES.PREVIEW_IMAGE ? (
-				<div>
-					<div style={{ height: '100vh' }} className='container-image'>
-						<img
-							src='images/Marco.png'
-							style={{ width: '100%', height: '100%', position: 'absolute' }}
-							alt=''
-						/>
-						{/* <div className="image" style={{ backgroundImage: `url('${file}')`, height: "100%", width: "100%" , zIndex: 999}} /> */}
-						<div
-							style={{
-								height: '100%',
-								width: '100%',
-								backgroundColor: 'blue',
-								display: 'flex',
-								alignItems: 'flex-end',
-								justifyContent: 'center',
-							}}
-						>
-							<img
-								src={file}
-								alt='Uploaded'
-								style={{
-									height: '80%',
-									width: '90%',
-									objectFit: 'fill',
-								}}
-							/>
-						</div>
-					</div>
-
-					<button
-						className='btnSave'
-						style={{
-							position: 'absolute',
-							zIndex: 999,
-							bottom: '5%',
-							left: '',
-						}}
-						disabled={file.length === 0}
-						onClick={async () => {
-							await exportAsImage(file);
-							goToPage(PAGES.QR_CODE);
-							check();
-							getdata();
-						}}
-					>
-						{isLoadingImage ? 'Generando imagen' : ' Guardar y continuar'}
-					</button>
-				</div>
-			) : null}
-			{currentScreen === PAGES.QR_CODE ? (
-				<div>
-					<img
-						onDoubleClick={() => {
-							goToPage(PAGES.DESPEDIDA);
-						}}
-						src='images/exp1.png'
-						style={{ width: '100%', height: '100%', position: 'absolute' }}
-						alt=''
-					/>
-					<div
-						style={{
-							position: 'absolute',
-							top: '56%',
-							left: '50%',
-							margin: '-25px 0 0 -128px',
-						}}
-					>
-						{qrUrl ? (
-							<QRCode
-								size={256}
-								style={{ height: '100%', maxWidth: '256px', width: '100%' }}
-								value={`https://mocionws.info/download.html?url=https://mocionws.info/mirror/${qrUrl}.png&name=Wella Beauty Festival - Sebastian Mirror`}
-								viewBox='0 0 256 256'
-							/>
-						) : (
-							<QRCode
-								size={256}
-								style={{ height: '100%', maxWidth: '256px', width: '100%' }}
-								value={`${window.location.href}/images/notfound.jpg`}
-								viewBox='0 0 256 256'
-							/>
-						)}
-					</div>
-				</div>
-			) : null}
 			{currentScreen === PAGES.DESPEDIDA ? (
 				<div>
 					<img
